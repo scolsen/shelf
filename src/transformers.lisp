@@ -24,11 +24,11 @@
   (labels ((r (a current prev result) 
              (cond ((eql nil a) result)
                    ((shelf.predicates:option? current) 
-                    (progn (setf (gethash (option-to-keyword current) result) '())
+                    (setf (gethash (option-to-keyword current) result) '())
                     (r (cdr a) (cadr a) current 
-                       result)))
-                   (t (progn (setf (gethash (option-to-keyword prev) result) (cons current (gethash (option-to-keyword prev) result)))
+                       result))
+                   (t (setf (gethash (option-to-keyword prev) result) (cons current (gethash (option-to-keyword prev) result)))
                    (r (cdr a) (cadr a) prev 
-                         result)))))) 
+                         result))))) 
           (r arguments (car arguments) (car arguments) (make-hash-table))))
 
